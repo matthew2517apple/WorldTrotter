@@ -9,6 +9,8 @@ import UIKit
 
 class ConversionViewController: UIViewController, UITextFieldDelegate {
     
+    @IBOutlet var convertView: UIView!
+    
     @IBOutlet var celsiusLabel: UILabel!
     
     var fahrenheitValue: Measurement<UnitTemperature>? {
@@ -87,5 +89,33 @@ class ConversionViewController: UIViewController, UITextFieldDelegate {
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
+    }
+    
+    func isEvening() -> Bool {
+        let currentHour = Calendar.current.component(.hour, from: Date())
+        
+        print("hour: \(currentHour)")
+        
+        // "evening" is 5 AM to 7 PM, more or less:
+        if currentHour < 5 || currentHour > 19 {
+            return true
+        } else {
+            return false
+        }
+    }
+    
+    func applyDarkMode() {
+        if isEvening() {
+            convertView.backgroundColor = UIColor.darkGray
+        } else {
+            convertView.backgroundColor = UIColor.cyan
+        }
+    }
+    
+    // It only updates when tabs are changed;
+    // if it becomes evening while this tab is open,
+    // the background will not automatically change:
+    override func viewWillAppear(_ animated: Bool) {
+        applyDarkMode()
     }
 }
