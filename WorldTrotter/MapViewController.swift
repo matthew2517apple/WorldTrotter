@@ -17,7 +17,7 @@ class MapViewController: UIViewController {
         mapView = MKMapView()
         view = mapView
         
-        let segmentedControl = UISegmentedControl(items: ["Standard", "Hybrid", "Satellite"])
+        let segmentedControl = UISegmentedControl(items: ["Standard", "Hybrid", "Satellite", "ZOOM"])
         segmentedControl.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         segmentedControl.selectedSegmentIndex = 0
         
@@ -44,9 +44,15 @@ class MapViewController: UIViewController {
             mapView.mapType = MKMapType.hybrid
         case 2:
             mapView.mapType = MKMapType.satellite
+        case 3:
+            zoomToCurrentLocation()
         default:
             break
         }
+    }
+    
+    func zoomToCurrentLocation() {
+        
     }
     
     override func viewDidLoad() {
